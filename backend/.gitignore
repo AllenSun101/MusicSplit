@@ -1,1 +1,12 @@
 /__pycache__
+/venv
+/backend/__pycache__
+/routes/__pycache__
+/routes/migrations/__pycache__
+
+# Large files
+*.mp3
+*.wav
+
+# Pretrained models
+/pretrained_models
