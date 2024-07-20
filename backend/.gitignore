@@ -7,6 +7,9 @@
 # Large files
 *.mp3
 *.wav
+*.mid
 
 # Pretrained models
 /pretrained_models
+
+.env
