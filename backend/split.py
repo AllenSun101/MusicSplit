@@ -25,14 +25,13 @@ def separate(song, stems) -> bool:
     return True
 
 
+def join(file_paths):
+    pass
+
 
 if __name__ == '__main__':
     # Define the input file
     input_file = 'I_Think_He_Knows.mp3'
-
-    # Ensure the output directory exists
-    if not os.path.exists('output'):
-        os.makedirs('output')
 
     # Perform the separation
     separate(input_file, 2)

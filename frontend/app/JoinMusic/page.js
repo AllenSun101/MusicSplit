@@ -1,4 +1,4 @@
-export default function YouTubeDownload(){
+export default function JoinMusic(){
     return(
         <div>
             
