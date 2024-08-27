@@ -3,11 +3,13 @@ from django.http import HttpResponse, JsonResponse
 from split import separate
 from transcribe import getMIDI
 from yt_to_mp3 import yt_to_mp3
+from django.middleware.csrf import get_token
 
 # Create your views here.
 
 def say_hello(request):
-    return HttpResponse('Hello World')
+    print("YAY")
+    return JsonResponse({"message": 'Hello World'})
 
 def yt_to_mp3(request):
     # Return link to the saved file for download
@@ -30,3 +32,7 @@ def join_stems(request):
     audio_paths = request.GET.get('audio_path', None)
 
     return JsonResponse({"output": split_mp3(audio_paths)}, safe=False)
+
+def get_csrf_token(request):
+    csrf_token = get_token(request)
+    return JsonResponse({'csrfToken': csrf_token})

@@ -12,5 +12,5 @@ def getMIDI(file):
                      save_midi=True, sonify_midi=False, save_model_outputs=False, save_notes=False)
 
 
-getMIDI("output\Welcome_To_New_Yorke\\other.wav")
+# getMIDI("output\Welcome_To_New_Yorke\\other.wav")
 

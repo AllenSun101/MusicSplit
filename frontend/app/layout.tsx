@@ -3,6 +3,7 @@ import { Inter, Raleway } from "next/font/google";
 import "./globals.css";
 import Navbar from "./navbar"
 import Footer from "./footer"
+import { ReactQueryProvider } from "./ReactQueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const raleway = Raleway({subsets: ['latin']})
@@ -21,7 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={raleway.className}>
       <Navbar />
+      <ReactQueryProvider>
       {children}
+      </ReactQueryProvider>
       <Footer />
       </body>
     </html>
