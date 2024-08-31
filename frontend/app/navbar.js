@@ -21,8 +21,8 @@ export default function Navbar(){
 			<header className="absolute inset-x-0 top-0 z-50">
 				<nav className="flex items-center justify-between p-6 lg:px-6" aria-label="Global">
                     <div className="flex lg:flex-1">
-						<Link href="/" className="-m-1.5 p-1.5">
-							<span className="sr-only">MusicSplit</span>
+						<Link href="/" className="-m-1.5 p-1.5 text-2xl font-semibold font-serif italic bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-400">
+                            MusicSplit
 						</Link>
 					</div>
 					<div className="flex lg:hidden">
