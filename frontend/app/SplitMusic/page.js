@@ -17,7 +17,7 @@ export default function SplitMusic() {
         // Send files and fetch results
         mutation.mutate({ files }, {
             onSuccess: (data) => {
-                setOutput("HOWDY");
+                setOutput(data.data.output);
             }
         });
     };
@@ -29,10 +29,17 @@ export default function SplitMusic() {
 
             axios.defaults.withCredentials = true; // Ensure credentials (cookies) are included
 
-            return axios.post(`http://localhost:8000/routes/hello/`, params.files, {
+            const formData = new FormData();
+            params.files.forEach(file => {
+                formData.append('file', file);
+            });
+
+            return axios.post(`http://localhost:8000/routes/mp3_to_midi/`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': token,
+                    //'audio_path' : files, // verify this- only want to pass the name
+                    //'stems': 2,
                 },
             });
         },
