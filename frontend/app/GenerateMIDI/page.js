@@ -13,7 +13,7 @@ export default function GenerateMIDI(){
 		setFiles(files);
 	};
 
-    const submitLink = () => {
+    const submitFiles = () => {
         // Send file and fetch results
         mutation.mutate({ files: files }, {
             onSuccess: (data) => {
@@ -75,7 +75,7 @@ export default function GenerateMIDI(){
                     </ul>
                 </div>
             )}
-            <button className='mt-2 bg-gray-100 py-2 px-4 rounded-md block mx-auto' onClick={submitLink}>
+            <button className='mt-2 bg-gray-100 py-2 px-4 rounded-md block mx-auto' onClick={submitFiles}>
                 Submit
             </button>
             

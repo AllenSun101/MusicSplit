@@ -6,20 +6,28 @@ import { useMutation } from '@tanstack/react-query';
 
 export default function SplitMusic() {
     const [files, setFiles] = useState([]);
-    const [output, setOutput] = useState("HI");
+    const [stems, setStems] = useState(2);
+    const [output, setOutput] = useState();
 
     const handleFileChange = (event) => {
         const selectedFiles = Array.from(event.target.files);
         setFiles(selectedFiles);
     };
 
+    const handleStemsChange = (event) => {
+        const stems = event.target.value;
+        setStems(stems);
+    };
+
     const submitFiles = () => {
-        // Send files and fetch results
-        mutation.mutate({ files }, {
+        // Send file and fetch results
+        mutation.mutate({ files: files, stems: stems }, {
             onSuccess: (data) => {
                 setOutput(data.data.output);
             }
         });
+        setFiles([]);
+        setOutput();
     };
 
     // Send request to backend and fetch data
@@ -29,17 +37,10 @@ export default function SplitMusic() {
 
             axios.defaults.withCredentials = true; // Ensure credentials (cookies) are included
 
-            const formData = new FormData();
-            params.files.forEach(file => {
-                formData.append('file', file);
-            });
-
-            return axios.post(`http://localhost:8000/routes/mp3_to_midi/`, formData, {
+            return axios.post(`http://localhost:8000/routes/split_mp3/`, params, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': token,
-                    //'audio_path' : files, // verify this- only want to pass the name
-                    //'stems': 2,
                 },
             });
         },
@@ -78,10 +79,27 @@ export default function SplitMusic() {
                     </ul>
                 </div>
             )}
+            <label className='text-lg mr-4'>Enter Stems (2, 4, or 5):</label>
+            <input
+                onChange={handleStemsChange}
+                className='mb-6 rounded-md border border-blue-500'
+                type="text"
+                name="stems"
+            />
             <button className='mt-2 bg-gray-100 py-2 px-4 rounded-md block mx-auto' onClick={submitFiles}>
                 Submit Files
             </button>
-            <p>{output}</p>
+            {output && (
+                <div className="mt-4 text-center">
+                    <p className='mb-4'>Your files are ready for download!</p>
+                    <a 
+                        href={output} 
+                        download 
+                        className='bg-purple-500 text-white py-2 px-4 rounded-md'>
+                        Download Stems
+                    </a>
+                </div>
+            )}
         </div>
     );
 }

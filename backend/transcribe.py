@@ -23,8 +23,6 @@ def getMIDI(file):
     base, ext = os.path.splitext(filename) 
     output_file_name = base + '_basic_pitch.mid'
 
-    output_file_path = os.path.join(output_dir, output_file_name)
-
     # Create a public URL for the output MIDI file
     output_file_url = os.path.join(settings.MEDIA_URL, 'midi', output_file_name)
 
