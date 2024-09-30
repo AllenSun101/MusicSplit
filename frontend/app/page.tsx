@@ -10,7 +10,7 @@ export default function Home() {
                     <span className="text-5xl font-bold">Welcome to </span>
                     <span className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">MusicSplit</span>
                     <p className="py-6 text-xl mb-6">
-                        Build personalized resumes in seconds
+                        Access musical tools in seconds
                     </p>
                 </div>
             </div>
