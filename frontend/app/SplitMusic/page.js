@@ -23,7 +23,7 @@ export default function SplitMusic() {
         // Send file and fetch results
         mutation.mutate({ files: files, stems: stems }, {
             onSuccess: (data) => {
-                setOutput("HOWDY");
+                setOutput(data.data.output);
             }
         });
         setFiles([]);

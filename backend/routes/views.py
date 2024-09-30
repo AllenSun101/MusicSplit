@@ -59,6 +59,7 @@ def mp3_to_midi(request):
             return JsonResponse({"output": file_url}, safe=False)
         return JsonResponse({"error": "No file provided"}, status=400)
     
+    
 def join_stems(request):
     audio_paths = request.GET.get('audio_path', None)
 
