@@ -31,7 +31,8 @@ def join(file_paths):
 
 if __name__ == '__main__':
     # Define the input file
-    input_file = 'I_Think_He_Knows.mp3'
+    # input_file = 'I_Think_He_Knows.mp3'
 
     # Perform the separation
-    separate(input_file, 2)
+    # separate(input_file, 2)
+    pass
