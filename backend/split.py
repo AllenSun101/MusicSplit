@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+from pydub import AudioSegment
 
 def separate(file, stems):
     if file is None or stems is None:
@@ -47,8 +48,19 @@ def separate(file, stems):
     return output_file_urls
 
 
-def join(file_paths):
-    pass
+def join(files):
+    audio1 = AudioSegment.from_file(files[0])
+    audio2 = AudioSegment.from_file(files[1])
+
+    mixed_audio = audio1.overlay(audio2)
+
+    output_file = os.path.join(os.getcwd(), 'media/join', 'mixed_audio.mp3')  
+
+    mixed_audio.export(output_file, format="mp3")
+
+    output_file_url = os.path.join(settings.MEDIA_URL, 'join', 'mixed_audio.mp3')
+
+    return output_file_url
 
 
 if __name__ == '__main__':

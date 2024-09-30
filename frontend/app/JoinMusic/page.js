@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export default function JoinMusic() {
     const [files, setFiles] = useState([]);
-    const [output, setOutput] = useState("HI");
+    const [output, setOutput] = useState();
 
     const handleFileChange = (event) => {
         const selectedFiles = Array.from(event.target.files);
@@ -14,12 +14,14 @@ export default function JoinMusic() {
     };
 
     const submitFiles = () => {
-        // Send files and fetch results
-        mutation.mutate({ files }, {
+        // Send file and fetch results
+        mutation.mutate({ files: files }, {
             onSuccess: (data) => {
-                setOutput("HOWDY");
+                setOutput(data.data.output);
             }
         });
+        setFiles([]);
+        setOutput();
     };
 
     // Send request to backend and fetch data
@@ -29,7 +31,7 @@ export default function JoinMusic() {
 
             axios.defaults.withCredentials = true; // Ensure credentials (cookies) are included
 
-            return axios.post(`http://localhost:8000/routes/hello/`, params.files, {
+            return axios.post(`http://localhost:8000/routes/join_stems/`, params, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'X-CSRFToken': token,
@@ -49,6 +51,13 @@ export default function JoinMusic() {
 
     return (
         <div className='bg-white py-24 px-8'>
+            <div className="flex justify-center mb-12">
+                <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
+                Join Stems
+                </h2>
+            </div>
+            <p className="text-lg text-center mb-24"> Join multiple .mp3 audio files. </p>
+            <label className='text-lg mr-4'>Select Files:</label>
             <input
                 onChange={handleFileChange}
                 className='mb-6'
@@ -66,9 +75,23 @@ export default function JoinMusic() {
                 </div>
             )}
             <button className='mt-2 bg-gray-100 py-2 px-4 rounded-md block mx-auto' onClick={submitFiles}>
-                Submit Files
+                Submit
             </button>
-            <p>{output}</p>
+            
+            {output && (
+                <div className="mt-4 text-center">
+                    <p className='mb-4'>Your file is ready for download!</p>
+                    <a 
+                        href={output} 
+                        download 
+                        className='bg-purple-500 text-white py-2 px-4 rounded-md'>
+                        Download MIDI
+                    </a>
+                </div>
+            )}
+
+            {output}
+
         </div>
     );
 }

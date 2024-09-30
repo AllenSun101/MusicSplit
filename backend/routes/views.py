@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from split import separate
+from split import separate, join
 from transcribe import getMIDI
 from yt_to_mp3 import convert_yt_to_mp3
 from django.middleware.csrf import get_token
@@ -61,10 +61,15 @@ def mp3_to_midi(request):
     
     
 def join_stems(request):
-    audio_paths = request.GET.get('audio_path', None)
-
-    return JsonResponse({"output": split_mp3(audio_paths)}, safe=False)
-
+    if request.method == 'POST':
+        files = request.FILES.getlist('files[]')
+        if files:
+            file_path = join(files)
+            # Convert the file path to a public URL
+            file_url = request.build_absolute_uri(file_path)
+            return JsonResponse({"output": file_url}, safe=False)
+        return JsonResponse({"error": "No file provided"}, status=400)
+    
 
 def get_csrf_token(request):
     csrf_token = get_token(request)
